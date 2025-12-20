@@ -1,0 +1,87 @@
+.admin-scores-container {
+  padding: 20px 0;
+}
+
+.admin-scores-title {
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+  font-weight: 700;
+}
+
+.admin-scores-filter-card {
+  margin-bottom: 1.5rem;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.admin-scores-table {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.admin-scores-table th {
+  background-color: #2c3e50;
+  color: white;
+  font-weight: 600;
+  border-color: #1a2530;
+}
+
+.admin-scores-table tr:hover {
+  background-color: #f5f8fa;
+}
+
+.admin-filter-form-group {
+  margin-bottom: 0;
+}
+
+.admin-filter-label {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.admin-filter-select,
+.admin-filter-input {
+  border-radius: 4px;
+  border: 1px solid #dce4ec;
+  padding: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.admin-filter-select:focus,
+.admin-filter-input:focus {
+  border-color: #2c3e50;
+  box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.25);
+}
+
+.badge {
+  font-size: 85%;
+  font-weight: 600;
+  padding: 0.35em 0.65em;
+  border-radius: 4px;
+}
+
+.badge.bg-success {
+  background-color: #27ae60 !important;
+}
+
+.badge.bg-danger {
+  background-color: #e74c3c !important;
+}
+
+.view-details-btn {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  background-color: #3498db;
+  border-color: #3498db;
+  transition: all 0.2s;
+}
+
+.view-details-btn:hover {
+  background-color: #2980b9;
+  border-color: #2980b9;
+  transform: translateY(-1px);
+} 

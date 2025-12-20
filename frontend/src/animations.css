@@ -1,0 +1,186 @@
+/* animations.css - Modern styling and animations for the Quiz Master application */
+
+/* Global animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInFromLeft {
+  from { transform: translateX(-30px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInFromRight {
+  from { transform: translateX(30px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInFromTop {
+  from { transform: translateY(-30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Modern styling */
+:root {
+  --primary-color: #4a6eb5;
+  --secondary-color: #6c8ecc;
+  --accent-color: #f8d57e;
+  --success-color: #4caf50;
+  --error-color: #f44336;
+  --text-color: #333;
+  --light-bg: #f9f9f9;
+  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --hover-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* App-wide enhancements */
+.app-container {
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Card styling */
+.card {
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: var(--hover-shadow);
+  transform: translateY(-3px);
+}
+
+/* Button styling */
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+/* Form styling */
+.form-control {
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  padding: 10px 15px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(74, 110, 181, 0.25);
+}
+
+/* Quiz elements */
+.quiz-card {
+  animation: slideInFromLeft 0.5s ease-out;
+}
+
+.quiz-question {
+  animation: slideInFromTop 0.5s ease-out;
+}
+
+.quiz-option {
+  transition: all 0.2s ease;
+}
+
+.quiz-option:hover {
+  background-color: #f0f7ff;
+  transform: translateX(5px);
+}
+
+.quiz-option.selected {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Results and statistics */
+.result-container {
+  animation: fadeIn 1s ease-out;
+}
+
+.score-display {
+  animation: pulse 2s infinite;
+}
+
+/* Navbar enhancement */
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+}
+
+.nav-link {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--accent-color) !important;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--accent-color);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Login/Register forms */
+.auth-container {
+  animation: fadeIn 0.8s ease-out;
+}
+
+.auth-form {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: var(--card-shadow);
+  padding: 25px;
+  animation: slideInFromTop 0.5s ease-out;
+}
+
+/* Loading indicators */
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Notifications */
+.toast {
+  animation: slideInFromRight 0.3s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card {
+    margin-bottom: 15px;
+  }
+  
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+} 
