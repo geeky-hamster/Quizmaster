@@ -38,19 +38,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const questionController = __importStar(require("../controllers/question.controller"));
-const optionController = __importStar(require("../controllers/option.controller"));
 const auth_middleware_1 = require("../middleware/auth.middleware");
 const router = express_1.default.Router();
 // Question routes
 router.post('/', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, questionController.createQuestion);
 router.get('/quiz/:quizId', auth_middleware_1.verifyToken, questionController.getQuestionsByQuiz);
+router.get('/quiz/:quizId/user', auth_middleware_1.verifyToken, questionController.getQuestionsByQuizForUser);
 router.get('/:id', auth_middleware_1.verifyToken, questionController.getQuestionById);
 router.put('/:id', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, questionController.updateQuestion);
 router.delete('/:id', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, questionController.deleteQuestion);
-// Option routes
-router.post('/options', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, optionController.createOption);
-router.get('/:questionId/options', auth_middleware_1.verifyToken, optionController.getOptionsByQuestion);
-router.get('/options/:id', auth_middleware_1.verifyToken, optionController.getOptionById);
-router.put('/options/:id', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, optionController.updateOption);
-router.delete('/options/:id', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, optionController.deleteOption);
 exports.default = router;

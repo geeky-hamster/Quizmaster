@@ -26,20 +26,8 @@ app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 // Routes
-const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
-const user_routes_1 = __importDefault(require("./routes/user.routes"));
-const subject_routes_1 = __importDefault(require("./routes/subject.routes"));
-const chapter_routes_1 = __importDefault(require("./routes/chapter.routes"));
-const quiz_routes_1 = __importDefault(require("./routes/quiz.routes"));
-const question_routes_1 = __importDefault(require("./routes/question.routes"));
-const score_routes_1 = __importDefault(require("./routes/score.routes"));
-app.use('/api/auth', auth_routes_1.default);
-app.use('/api/users', user_routes_1.default);
-app.use('/api/subjects', subject_routes_1.default);
-app.use('/api/chapters', chapter_routes_1.default);
-app.use('/api/quizzes', quiz_routes_1.default);
-app.use('/api/questions', question_routes_1.default);
-app.use('/api/scores', score_routes_1.default);
+const routes_1 = __importDefault(require("./routes"));
+app.use('/api', routes_1.default);
 // Root route
 app.get('/', (req, res) => {
     res.json({ message: 'Welcome to Quiz Master API' });
@@ -58,5 +46,6 @@ app.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         console.error('Unable to connect to the database:', error);
+        console.log('Server will continue to run without database functionality. API endpoints that require database access will not work.');
     }
 }));

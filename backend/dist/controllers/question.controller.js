@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteQuestion = exports.updateQuestion = exports.getQuestionById = exports.getQuestionsByQuiz = exports.createQuestion = void 0;
+exports.getQuestionsByQuizForUser = exports.deleteQuestion = exports.updateQuestion = exports.getQuestionById = exports.getQuestionsByQuiz = exports.createQuestion = void 0;
 const models_1 = require("../models");
 // Create a new question (admin only)
 const createQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -116,7 +116,6 @@ const deleteQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function*
         if (!question) {
             return res.status(404).json({ message: 'Question not found' });
         }
-        // Delete the question (options will be deleted due to CASCADE constraint)
         yield question.destroy();
         return res.status(200).json({ message: 'Question deleted successfully' });
     }
@@ -126,3 +125,19 @@ const deleteQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.deleteQuestion = deleteQuestion;
+// Get all questions for a quiz for users (doesn't include correct answers)
+const getQuestionsByQuizForUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { quizId } = req.params;
+        const questions = yield models_1.Question.findAll({
+            where: { quiz_id: parseInt(quizId) },
+            attributes: ['id', 'quiz_id', 'question_statement', 'option1', 'option2', 'option3', 'option4']
+        });
+        return res.status(200).json(questions);
+    }
+    catch (error) {
+        console.error('Error getting questions for user:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+});
+exports.getQuestionsByQuizForUser = getQuestionsByQuizForUser;

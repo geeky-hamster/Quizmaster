@@ -6,7 +6,7 @@ dotenv.config();
 
 // Admin creds to create the database/user
 const adminUser = process.env.DB_ADMIN_USER || process.env.DB_ROOT_USER || 'root';
-const adminPassword = process.env.DB_ADMIN_PASSWORD || process.env.DB_ROOT_PASSWORD || '';
+const adminPassword = process.env.DB_ADMIN_PASSWORD || process.env.DB_ROOT_PASSWORD || 'root';
 const adminHost = process.env.DB_ADMIN_HOST || process.env.DB_HOST || 'localhost';
 const adminPort = parseInt(process.env.DB_ADMIN_PORT || process.env.DB_PORT || '3306', 10);
 

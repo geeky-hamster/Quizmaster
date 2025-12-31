@@ -21,16 +21,21 @@ exports.Quiz = (0, quiz_model_1.default)(database_1.default);
 exports.Question = (0, question_model_1.default)(database_1.default);
 exports.Score = (0, score_model_1.default)(database_1.default);
 // Define relationships
-exports.Subject.hasMany(exports.Chapter, { foreignKey: 'subject_id', as: 'chapters' });
-exports.Chapter.belongsTo(exports.Subject, { foreignKey: 'subject_id', as: 'subject' });
-exports.Chapter.hasMany(exports.Quiz, { foreignKey: 'chapter_id', as: 'quizzes' });
-exports.Quiz.belongsTo(exports.Chapter, { foreignKey: 'chapter_id', as: 'chapter' });
-exports.Quiz.hasMany(exports.Question, { foreignKey: 'quiz_id', as: 'questions' });
-exports.Question.belongsTo(exports.Quiz, { foreignKey: 'quiz_id', as: 'quiz' });
-exports.User.hasMany(exports.Score, { foreignKey: 'user_id', as: 'scores' });
-exports.Score.belongsTo(exports.User, { foreignKey: 'user_id', as: 'user' });
-exports.Quiz.hasMany(exports.Score, { foreignKey: 'quiz_id', as: 'scores' });
-exports.Score.belongsTo(exports.Quiz, { foreignKey: 'quiz_id', as: 'quiz' });
+try {
+    exports.Subject.hasMany(exports.Chapter, { foreignKey: 'subject_id', as: 'chapters' });
+    exports.Chapter.belongsTo(exports.Subject, { foreignKey: 'subject_id', as: 'subject' });
+    exports.Chapter.hasMany(exports.Quiz, { foreignKey: 'chapter_id', as: 'quizzes' });
+    exports.Quiz.belongsTo(exports.Chapter, { foreignKey: 'chapter_id', as: 'chapter' });
+    exports.Quiz.hasMany(exports.Question, { foreignKey: 'quiz_id', as: 'questions' });
+    exports.Question.belongsTo(exports.Quiz, { foreignKey: 'quiz_id', as: 'quiz' });
+    exports.User.hasMany(exports.Score, { foreignKey: 'user_id', as: 'scores' });
+    exports.Score.belongsTo(exports.User, { foreignKey: 'user_id', as: 'user' });
+    exports.Quiz.hasMany(exports.Score, { foreignKey: 'quiz_id', as: 'scores' });
+    exports.Score.belongsTo(exports.Quiz, { foreignKey: 'quiz_id', as: 'quiz' });
+}
+catch (error) {
+    console.error('Error setting up database relationships:', error);
+}
 exports.default = {
     sequelize: database_1.default,
     User: exports.User,

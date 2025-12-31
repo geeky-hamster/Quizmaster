@@ -14,28 +14,18 @@ const models_1 = require("../models");
 // Create a new quiz (admin only)
 const createQuiz = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { title, description, chapterId, timeLimit } = req.body;
+        const { chapterId, title, description, timeLimit, passingScore } = req.body;
         // Check if chapter exists
         const chapter = yield models_1.Chapter.findByPk(chapterId);
         if (!chapter) {
             return res.status(404).json({ message: 'Chapter not found' });
         }
-        // Check if quiz exists in the chapter
-        const quizExists = yield models_1.Quiz.findOne({
-            where: {
-                name: title,
-                chapter_id: chapterId
-            }
-        });
-        if (quizExists) {
-            return res.status(400).json({ message: 'Quiz already exists in this chapter' });
-        }
         const quiz = yield models_1.Quiz.create({
+            chapter_id: chapterId,
             name: title,
             remarks: description,
-            chapter_id: chapterId,
-            date_of_quiz: new Date(),
-            time_duration: timeLimit || '00:30' // Default 30 minutes
+            time_duration: timeLimit,
+            date_of_quiz: new Date()
         });
         return res.status(201).json({
             message: 'Quiz created successfully',
@@ -55,8 +45,7 @@ const getAllQuizzes = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             include: [
                 {
                     model: models_1.Chapter,
-                    as: 'chapter',
-                    attributes: ['id', 'name']
+                    as: 'chapter'
                 }
             ]
         });
@@ -68,12 +57,18 @@ const getAllQuizzes = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.getAllQuizzes = getAllQuizzes;
-// Get quizzes by chapter ID
+// Get quizzes by chapter
 const getQuizzesByChapter = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { chapterId } = req.params;
         const quizzes = yield models_1.Quiz.findAll({
-            where: { chapter_id: parseInt(chapterId) }
+            where: { chapter_id: parseInt(chapterId) },
+            include: [
+                {
+                    model: models_1.Chapter,
+                    as: 'chapter'
+                }
+            ]
         });
         return res.status(200).json(quizzes);
     }
@@ -114,7 +109,7 @@ exports.getQuizById = getQuizById;
 const updateQuiz = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
-        const { title, description, chapterId, timeLimit } = req.body;
+        const { title, description, timeLimit, passingScore, chapterId } = req.body;
         const quiz = yield models_1.Quiz.findByPk(parseInt(id));
         if (!quiz) {
             return res.status(404).json({ message: 'Quiz not found' });
@@ -129,8 +124,9 @@ const updateQuiz = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         yield quiz.update({
             name: title || quiz.get('name'),
             remarks: description || quiz.get('remarks'),
+            time_duration: timeLimit || quiz.get('time_duration'),
             chapter_id: chapterId || quiz.get('chapter_id'),
-            time_duration: timeLimit || quiz.get('time_duration')
+            date_of_quiz: quiz.get('date_of_quiz') || new Date()
         });
         return res.status(200).json({
             message: 'Quiz updated successfully',
